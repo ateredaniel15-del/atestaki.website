@@ -1,0 +1,1054 @@
+/* ==========================================================================
+   ATESTAKI ENGINEERING NIG LTD — STYLESHEET
+   --------------------------------------------------------------------------
+   Organized top to bottom:
+   1. Design tokens (colors, fonts, spacing) — edit these to re-theme the site
+   2. Reset / base styles
+   3. Reusable helpers (container, buttons, section headings, animations)
+   4. Section-by-section styles, in the same order as index.html
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. DESIGN TOKENS
+   Change these variables to shift the whole site's look. The palette is a
+   deep "electric blue" (the industrial/power theme) with an amber/gold
+   accent (the "live wire" color used sparingly for emphasis + CTAs).
+-------------------------------------------------------------------------- */
+:root {
+  /* Core palette */
+  --navy-950: #060f20;   /* near-black navy, used for footer / darkest panels */
+  --navy-900: #0a1f44;   /* primary deep electric blue (brand color) */
+  --navy-800: #123063;   /* slightly lighter navy for gradients/panels */
+  --navy-700: #1b4a8f;   /* mid blue, used for accents on dark backgrounds */
+  --amber: #f5a623;      /* primary accent (gold/amber) */
+  --amber-dark: #d98c0f; /* darker amber for hover states */
+
+  --bg: #f6f8fb;         /* page background */
+  --surface: #ffffff;    /* card / panel background */
+  --ink: #0e1b2e;        /* main text color */
+  --muted: #5b6b84;      /* secondary/muted text */
+  --border: #e3e8f0;     /* light hairline border color */
+
+  /* Typography */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+
+  /* Layout */
+  --container-width: 1180px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(10, 31, 68, 0.06);
+  --shadow-md: 0 12px 30px rgba(10, 31, 68, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET / BASE STYLES
+-------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px; /* keeps anchor links from hiding under sticky navbar */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--navy-900);
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. REUSABLE HELPERS
+-------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Buttons -------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn--whatsapp {
+  background: #25d366; /* WhatsApp brand green — kept literal so the button reads instantly recognizable */
+  color: #06301c;
+}
+.btn--whatsapp:hover {
+  background: #1fbd5a;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--surface);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+}
+.btn--outline:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  transform: translateY(-2px);
+}
+
+.btn--lg {
+  padding: 16px 30px;
+  font-size: 1rem;
+}
+
+.btn--full {
+  width: 100%;
+}
+
+/* Section heading block -------------------------------------------------
+   Used at the top of most sections: small eyebrow label + big title +
+   optional subtitle. `.section-heading--light` is for dark-background
+   sections (like why-us) where the text needs to be light colored. */
+.section-heading {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.section-heading__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--amber-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+
+.section-heading__eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  background: var(--amber);
+  border-radius: 2px;
+}
+
+.section-heading__title {
+  font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+  margin-bottom: 14px;
+}
+
+.section-heading__subtitle {
+  color: var(--muted);
+  font-size: 1.02rem;
+  max-width: 54ch;
+}
+
+.section-heading--light .section-heading__title,
+.section-heading--light .section-heading__subtitle {
+  color: #d9e2f2;
+}
+.section-heading--light .section-heading__title { color: #ffffff; }
+
+/* Scroll fade-in animation ----------------------------------------------
+   Elements start slightly lower + transparent, then script.js adds the
+   `.is-visible` class via IntersectionObserver when they scroll into view. */
+.fade-in {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   TOP CONTACT BAR
+-------------------------------------------------------------------------- */
+.topbar {
+  background: var(--navy-950);
+  color: #c9d4e6;
+  font-size: 0.85rem;
+}
+
+.topbar__inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.topbar__contacts {
+  display: flex;
+  gap: 22px;
+}
+
+.topbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+.topbar__link:hover { color: var(--amber); }
+
+.topbar__tag {
+  color: #8ea0bf;
+  white-space: nowrap;
+}
+
+/* Hide the tag + shrink contacts on small screens to avoid overflow */
+@media (max-width: 640px) {
+  .topbar__tag { display: none; }
+  .topbar__inner { justify-content: center; }
+}
+
+/* --------------------------------------------------------------------------
+   STICKY NAVBAR
+-------------------------------------------------------------------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 31, 68, 0.97);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.12);
+}
+
+.navbar__inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Logo sits on a small light chip so its natural green artwork stays crisp
+   against the dark navy navbar/footer background. Swap images/logo-nav.png
+   to update the logo image itself. */
+.navbar__logo-chip {
+  display: flex;
+  align-items: center;
+  background: #f6f8fb;
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+}
+
+.navbar__logo-img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navbar__nav-link {
+  color: #d7e0f0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  transition: color 0.15s ease;
+}
+.navbar__nav-link:hover { color: var(--amber); }
+
+.navbar__nav-cta {
+  padding: 10px 20px;
+}
+
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 34px;
+  height: 34px;
+}
+.navbar__hamburger span {
+  display: block;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Hamburger animates into an "X" when menu is open (class toggled by JS) */
+.navbar__hamburger.is-active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.navbar__hamburger.is-active span:nth-child(2) { opacity: 0; }
+.navbar__hamburger.is-active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* --------------------------------------------------------------------------
+   MOBILE NAV
+   Below 900px the nav links collapse into a slide-down panel controlled by
+   the .is-open class (toggled in script.js).
+-------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .navbar__hamburger { display: flex; }
+
+  .navbar__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--navy-900);
+    padding: 0 24px;      /* no vertical padding while closed — see note below */
+    gap: 4px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  /* Vertical padding only applies once the menu opens. If padding lived on
+     .navbar__nav itself at all times, it would stop max-height: 0 from
+     fully collapsing the closed menu (padding can't be compressed below
+     its own size), leaving a visible sliver under the navbar. */
+  .navbar__nav.is-open {
+    padding: 10px 24px 26px;
+    max-height: 420px;
+  }
+  .navbar__nav-link {
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .navbar__nav-cta {
+    margin-top: 14px;
+    justify-content: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+-------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  background: linear-gradient(155deg, var(--navy-900) 0%, var(--navy-800) 55%, var(--navy-700) 100%);
+  overflow: hidden;
+  padding: 90px 0 70px;
+}
+
+/* Real project photo, full-bleed behind the hero content. A dark navy
+   gradient sits on top of it (in the same layer, via background blend) so
+   the white headline text stays readable. Swap images/hero-bg.jpg to
+   change the photo, and adjust background-position to re-frame the subject. */
+.hero__photo {
+  position: absolute;
+  inset: 0;
+  /* Solid navy on the left (behind the headline) fading to a lighter,
+     more transparent wash on the right, so the real photo stays visible
+     behind the stats panel instead of being hidden under a flat tint. */
+  background-image:
+    linear-gradient(100deg, rgba(6, 15, 32, 0.95) 0%, rgba(8, 22, 48, 0.86) 30%, rgba(10, 31, 68, 0.55) 60%, rgba(10, 31, 68, 0.32) 100%),
+    url('images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center 12%;
+}
+
+/* Subtle blueprint / circuit-board grid drawn with layered linear-gradients.
+   Purely decorative (aria-hidden in HTML). Adjust the rgba alpha to make
+   the grid lines more/less visible. */
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 75% 30%, black 0%, transparent 72%);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.hero__eyebrow {
+  color: var(--amber);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 18px;
+  font-size: 0.98rem;
+}
+
+.hero__title {
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  margin-bottom: 20px;
+  max-width: 16ch;
+}
+
+.hero__subtitle {
+  color: #c3cee3;
+  font-size: 1.08rem;
+  max-width: 52ch;
+  margin-bottom: 34px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Stat panel on the right side of the hero */
+.hero__panel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  backdrop-filter: blur(4px);
+}
+
+.hero__panel-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hero__panel-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.hero__panel-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.hero__panel-label {
+  color: #c3cee3;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+  }
+  .hero__title { max-width: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   TRUST BADGES STRIP
+-------------------------------------------------------------------------- */
+.badges {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 26px 0;
+}
+
+.badges__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.badges__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--navy-800);
+  font-size: 0.95rem;
+}
+
+.badges__icon {
+  font-size: 1.2rem;
+}
+
+/* --------------------------------------------------------------------------
+   SERVICES GRID
+-------------------------------------------------------------------------- */
+.services {
+  padding: 90px 0;
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 32px 26px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--amber);
+}
+
+.service-card__icon {
+  font-size: 2rem;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 166, 35, 0.12);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+}
+
+.service-card__title {
+  font-size: 1.14rem;
+  margin-bottom: 10px;
+}
+
+.service-card__text {
+  color: var(--muted);
+  font-size: 0.96rem;
+}
+
+@media (max-width: 900px) {
+  .services__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .services__grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   ABOUT SECTION
+-------------------------------------------------------------------------- */
+.about {
+  padding: 90px 0;
+  background: var(--surface);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.about__media-block {
+  background: linear-gradient(155deg, var(--navy-900), var(--navy-700));
+  border-radius: var(--radius-lg);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+/* Real photo of a technician on-site. object-fit: cover crops it to fill
+   the 4:5 frame above without distorting it; object-position lets you
+   nudge which part of the photo stays visible. */
+.about__media-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.about__text {
+  color: var(--muted);
+  margin-bottom: 18px;
+  max-width: 60ch;
+}
+
+.about__list {
+  margin: 22px 0 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.about__list li {
+  position: relative;
+  padding-left: 26px;
+  color: var(--navy-800);
+  font-weight: 500;
+  font-size: 0.96rem;
+}
+.about__list li::before {
+  content: '⚡';
+  position: absolute;
+  left: 0;
+  top: -1px;
+}
+
+@media (max-width: 900px) {
+  .about__grid { grid-template-columns: 1fr; }
+  .about__media-block { aspect-ratio: 16 / 9; }
+}
+
+/* --------------------------------------------------------------------------
+   RECENT PROJECTS
+-------------------------------------------------------------------------- */
+.projects {
+  padding: 90px 0;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Project photo frame: fixed height, image cropped to fill it via
+   object-fit so all 3 cards line up neatly regardless of the original
+   photo's aspect ratio. Swap the <img src="..."> in index.html to change
+   a photo. */
+.project-card__image {
+  height: 200px;
+  overflow: hidden;
+  background: var(--navy-900); /* shows briefly while the image loads */
+}
+.project-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.project-card:hover .project-card__image img {
+  transform: scale(1.06);
+}
+
+.project-card__body {
+  padding: 24px 22px 28px;
+}
+
+.project-card__tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--amber-dark);
+  background: rgba(245, 166, 35, 0.14);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.project-card__title {
+  font-size: 1.08rem;
+  margin-bottom: 10px;
+}
+
+.project-card__text {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+@media (max-width: 900px) {
+  .projects__grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   WHY CHOOSE US (dark section)
+-------------------------------------------------------------------------- */
+.why-us {
+  background: var(--navy-950);
+  padding: 90px 0;
+}
+
+.why-us__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 26px;
+}
+
+.why-us__item {
+  padding: 30px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.why-us__item:hover {
+  border-color: var(--amber);
+  transform: translateY(-4px);
+}
+
+.why-us__icon {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.why-us__item h3 {
+  color: #fff;
+  font-size: 1.04rem;
+  margin-bottom: 10px;
+}
+
+.why-us__item p {
+  color: #a9b7cf;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+  .why-us__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .why-us__grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   CTA BANNER
+-------------------------------------------------------------------------- */
+.cta-banner {
+  background: linear-gradient(120deg, var(--amber-dark), var(--amber));
+}
+
+.cta-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 22px;
+  padding: 46px 24px;
+}
+
+.cta-banner__title {
+  color: var(--navy-950);
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  margin-bottom: 6px;
+}
+
+.cta-banner__text {
+  color: rgba(6, 15, 32, 0.75);
+  font-weight: 500;
+}
+
+.cta-banner .btn--whatsapp {
+  background: var(--navy-950);
+  color: #fff;
+}
+.cta-banner .btn--whatsapp:hover {
+  background: var(--navy-900);
+}
+
+/* --------------------------------------------------------------------------
+   CONTACT SECTION
+-------------------------------------------------------------------------- */
+.contact {
+  padding: 90px 0;
+}
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+}
+
+.contact__list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.contact__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.contact__list-icon {
+  font-size: 1.3rem;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 31, 68, 0.06);
+  border-radius: var(--radius-sm);
+}
+.contact__list strong {
+  display: block;
+  color: var(--navy-900);
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+.contact__list a,
+.contact__list span {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.contact__list a:hover { color: var(--amber-dark); }
+
+/* Contact form ----------------------------------------------------------- */
+.contact__form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 34px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-row {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-row label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fbfcfe;
+  color: var(--ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.18);
+}
+
+.form-row textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact__form-note {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.contact__form-note.is-success {
+  color: #1f9d55;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .contact__grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+-------------------------------------------------------------------------- */
+.footer {
+  background: var(--navy-950);
+  color: #a9b7cf;
+  padding-top: 70px;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer__brand p {
+  margin: 16px 0 22px;
+  font-size: 0.92rem;
+  max-width: 34ch;
+}
+
+.footer__logo { margin-bottom: 4px; }
+
+.footer__col h4 {
+  color: #fff;
+  font-size: 0.98rem;
+  margin-bottom: 18px;
+}
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer__col a,
+.footer__col span {
+  font-size: 0.9rem;
+  color: #a9b7cf;
+  transition: color 0.15s ease;
+}
+.footer__col a:hover { color: var(--amber); }
+
+.footer__bottom {
+  padding: 22px 24px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #7488a8;
+}
+
+@media (max-width: 900px) {
+  .footer__grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .footer__grid { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   FLOATING WHATSAPP BUTTON
+   Fixed bottom-right, always visible, with a soft pulsing ring behind it.
+-------------------------------------------------------------------------- */
+.whatsapp-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 200;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.45);
+  transition: transform 0.2s ease;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+}
+
+.whatsapp-float__icon {
+  font-size: 1.7rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Pulse ring: a duplicate circle that scales up and fades out on loop */
+.whatsapp-float__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  animation: whatsapp-pulse 2.4s ease-out infinite;
+  z-index: 1;
+}
+
+@keyframes whatsapp-pulse {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-float__pulse { animation: none; opacity: 0; }
+}
+
+@media (max-width: 560px) {
+  .whatsapp-float {
+    right: 16px;
+    bottom: 16px;
+    width: 54px;
+    height: 54px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SMALL SCREEN TYPE / SPACING TWEAKS (down to 360px)
+-------------------------------------------------------------------------- */
+@media (max-width: 420px) {
+  .container { padding: 0 18px; }
+  .hero { padding: 70px 0 50px; }
+  .services, .about, .projects, .why-us, .contact { padding: 60px 0; }
+  .contact__form { padding: 24px; }
+  .hero__actions .btn { width: 100%; }
+}
